@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(echo:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(dir:*)",
+      "Bash(npx shadcn-ui@latest add:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx prisma migrate:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx prisma:*)",
+      "Bash(sqlite3:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: UX Researcher interview tool with research exercise hierarchy\n\n- Add Research Exercise model between Persona and Interview \\(Project > Persona > Exercise > Interview\\)\n- Implement full CRUD for research exercises with type dropdown \\(Usability Test, Interview, Card Sort, etc.\\)\n- Create exercise detail pages with nested interviews table\n- Build recording/annotation card interface for interview capture\n- Add API endpoints for exercise creation and deletion with cascade deletes\n- Implement modal-based creation workflow with title input and navigation\n- Add exercise-specific interview recording pages with query parameter state passing\n- Create interview detail view with recording playback, annotations, transcript, and AI analysis cards\n- Fix React server component issues with Toaster and modal providers\n- Implement row collapse animations and delete confirmations with toast notifications\n- Add Framer Motion for smooth UI transitions and highlighting\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  personas    Persona[]
+}
+
+model Persona {
+  id              String              @id @default(cuid())
+  projectId       String
+  project         Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name            String
+  description     String?
+  characteristics String?             // JSON string for flexible attributes
+  createdAt       DateTime            @default(now())
+  interviews      Interview[]
+  exercises       ResearchExercise[]
+}
+
+model ResearchExercise {
+  id          String      @id @default(cuid())
+  personaId   String
+  persona     Persona     @relation(fields: [personaId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  type        String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  interviews  Interview[]
+}
+
+model Interview {
+  id          String            @id @default(cuid())
+  personaId   String
+  persona     Persona           @relation(fields: [personaId], references: [id], onDelete: Cascade)
+  exerciseId  String
+  exercise    ResearchExercise  @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  title       String
+  audioUrl    String?
+  status      String            @default("draft") // draft, recording, transcribing, analyzing, complete
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  annotations Annotation[]
+  transcript  Transcript?
+  analyses    Analysis[]
+}
+
+model Annotation {
+  id          String    @id @default(cuid())
+  interviewId String
+  interview   Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  timestamp   Float     // seconds from start
+  content     String
+  createdAt   DateTime  @default(now())
+}
+
+model Transcript {
+  id          String    @id @default(cuid())
+  interviewId String    @unique
+  interview   Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  content     String    // full text
+  segments    String?   // JSON array of {start, end, text} segments
+  createdAt   DateTime  @default(now())
+}
+
+model Analysis {
+  id          String    @id @default(cuid())
+  interviewId String
+  interview   Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  agentName   String    // e.g., "theme_extractor", "sentiment_analyzer"
+  content     String    // JSON result from agent
+  createdAt   DateTime  @default(now())
+}
